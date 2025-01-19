@@ -1,4 +1,4 @@
-package fr.treemanager.treemanager;
+package fr.treemanager;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
