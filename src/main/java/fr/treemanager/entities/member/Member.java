@@ -1,4 +1,7 @@
 package fr.treemanager.entities.member;
+import fr.treemanager.entities.payment.Issuer;
+import fr.treemanager.entities.payment.Receiver;
+import fr.treemanager.entities.tree.Tree;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -6,7 +9,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 
-public class Member {
+public class Member implements Issuer, Receiver {
+    private final static int MAX_VOTES = 5;
 
     private final UUID id;
     private String lastName;

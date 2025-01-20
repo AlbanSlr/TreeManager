@@ -11,8 +11,9 @@ public class Subscription extends Payment {
     private Member member;
 
     public Subscription(Association association, Member member) {
-        super(member, association, "Subscription of " + member + " at " + new Date(), SUBSCRIPTION_AMOUNT, new Date());
+        super(member, association, "Subscription of " + member + " at " + new Date(), SUBSCRIPTION_AMOUNT);
         this.member = member;
+        this.setPaid();
     }
 
     public Member getMember() {

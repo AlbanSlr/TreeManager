@@ -9,6 +9,7 @@ public class Visit {
     private final Tree tree;
     private VisitState state;
     private Member member;
+    private Report report;
 
     public Visit(Date date, Tree tree) {
         this.date = date;
@@ -35,6 +36,26 @@ public class Visit {
 
     public Member getMember() {
         return member;
+    }
+
+    public void setReport(Report report) {
+
+        if(state != VisitState.SCHEDULED) {
+            throw new IllegalStateException("Visit state is not scheduled");
+        }
+
+        this.report = report;
+        state = VisitState.DONE;
+
+    }
+
+    public Report getReport() {
+        if(state != VisitState.DONE) {
+            throw new IllegalStateException("Visit has not been done");
+        }
+
+        return report;
+
     }
 
     public boolean isBooked() {

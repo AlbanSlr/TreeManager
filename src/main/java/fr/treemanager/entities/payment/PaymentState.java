@@ -1,6 +1,7 @@
 package fr.treemanager.entities.payment;
 
-public enum BillState {
+public enum PaymentState {
     PENDING,
-    PAID
+    PAID,
+    CANCELED
 }

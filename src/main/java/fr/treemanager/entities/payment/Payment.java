@@ -7,21 +7,43 @@ public abstract class Payment {
     private final Issuer issuer;
     private final Receiver receiver;
     private final double amount;
-    private final Date paymentDate;
+    private Date paymentDate;
+    protected PaymentState state;
 
-    public Payment(Issuer issuer, Receiver receiver, String description, double amount, Date paymentDate) {
+    public Payment(Issuer issuer, Receiver receiver, String description, double amount) {
         this.issuer = issuer;
         this.receiver = receiver;
         this.description = description;
         this.amount = amount;
-        this.paymentDate = paymentDate;
+        this.state = PaymentState.PENDING;
     }
 
     public double getAmount() {
         return amount;
     }
 
+    public Issuer getIssuer() {
+        return issuer;
+    }
+
+    public Receiver getReceiver() {
+        return receiver;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
     public String getDescription() {
         return description;
+    }
+
+    public PaymentState getState() {
+        return state;
+    }
+
+    protected void setPaid() {
+        this.state = PaymentState.PAID;
+        paymentDate = new Date();
     }
 }

@@ -1,20 +1,17 @@
 package fr.treemanager.entities.payment;
 
-import java.util.Date;
+import fr.treemanager.entities.association.Association;
 
 public class Bill extends Payment {
-        private BillState state;
-
-        public Bill(Issuer issuer, Receiver receiver, String description, double amount, Date paymentDate) {
-                super(issuer, receiver, description, amount, paymentDate);
-                state = BillState.PENDING;
+        public Bill(Association association, Receiver receiver, String description, double amount) {
+                super(association, receiver, description, amount);
         }
 
         public boolean isPaid() {
-                return state == BillState.PAID;
+                return this.state == PaymentState.PAID;
         }
 
         public void setPaid() {
-                state = BillState.PAID;
+                super.setPaid();
         }
 }

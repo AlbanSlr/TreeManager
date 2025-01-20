@@ -4,7 +4,7 @@ public final class Tree {
     private final String gender;
     private final String species;
     private final String commonFrenchName;
-    private final String adress;
+    private final String address;
     private double height;
     private double circumference;
     private boolean remarkable;
@@ -12,11 +12,11 @@ public final class Tree {
     private final GPSCoordinatesPair coordinates;
     private DevelopmentState developmentState;
 
-    public Tree(String gender, String species, String commonFrenchName, String adress, double height, double circumference, GPSCoordinatesPair coordinates) {
+    public Tree(String gender, String species, String commonFrenchName, String address, double height, double circumference, GPSCoordinatesPair coordinates) {
         this.gender = gender;
         this.species = species;
         this.commonFrenchName = commonFrenchName;
-        this.adress = adress;
+        this.address = address;
         this.height = height;
         this.circumference = circumference;
         this.coordinates = coordinates;
@@ -34,8 +34,8 @@ public final class Tree {
         return commonFrenchName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
     public double getHeight() {

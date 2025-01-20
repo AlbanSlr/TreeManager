@@ -1,4 +1,4 @@
-package fr.treemanager.controllers;
+package fr.treemanager.controllers.association;
 
 import fr.treemanager.entities.association.Association;
 import fr.treemanager.entities.member.Member;
@@ -7,6 +7,7 @@ import fr.treemanager.entities.payment.Bill;
 import fr.treemanager.entities.member.Donator;
 
 import java.util.Date;
+import java.util.List;
 
 public class AssociationController {
 
@@ -24,13 +25,17 @@ public class AssociationController {
         association.removeMember(member);
     }
 
+    public List<Member> getMembers() {
+        return association.getMembers();
+    }
+
     public void payBill(Bill bill) {
         if (bill.isPaid()) {
             throw new IllegalStateException("Bill already paid");
         } else {
            if (association.getBalance() >= bill.getAmount()) {
-               association.setBalance(association.getBalance() - bill.getAmount());
                bill.setPaid();
+               this.association.computeBalance();
            } else {
                throw new RuntimeException("Not enough money in the association balance");
            }
@@ -52,5 +57,9 @@ public class AssociationController {
         association.addScheduledVisit(visit);
     }
 
-    //TODO reveive compte rendu visite (report)
+    public List<Visit> getVisits() {
+        return association.getVisits();
+    }
+
+    //TODO reveiw compte rendu visite (report)
 }

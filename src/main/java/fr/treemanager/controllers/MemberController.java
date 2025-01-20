@@ -2,9 +2,14 @@ package fr.treemanager.controllers;
 
 import fr.treemanager.entities.association.Association;
 import fr.treemanager.entities.member.Member;
+import fr.treemanager.entities.payment.Subscription;
 import fr.treemanager.entities.tree.Tree;
 import fr.treemanager.entities.visit.Visit;
 import fr.treemanager.entities.visit.VisitState;
+import fr.treemanager.entities.visit.Report;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MemberController {
 
@@ -20,8 +25,13 @@ public class MemberController {
         member.vote(tree);
     }
 
-    public void paySubscription() {
+    public void subscribe() {
+        if(this.isSubscribed()) {
+            throw new IllegalArgumentException("Member is already subscribed");
+        }
 
+        Subscription subscription = new Subscription(association, member);
+        this.association.addPayment(subscription);
     }
 
     public void unsubscribe() {
@@ -40,5 +50,22 @@ public class MemberController {
         visit.setMember(member);
     }
 
-    // TODO submit a report after a visit
+    public void submitReport(Visit visit, Report report) {
+        visit.setReport(report);
+    }
+
+    public boolean isSubscribed() {
+        return association.isSubscribed(member);
+    }
+
+    public List<Visit> getAvailableVisits() {
+        List<Visit> availableVisits = new ArrayList<>();
+
+        for(Visit visit : this.association.getVisits() ) {
+            if(visit.getState() == VisitState.SCHEDULED) {
+                availableVisits.add(visit);
+            }
+        }
+        return availableVisits;
+    }
 }
