@@ -1,5 +1,6 @@
 package fr.treemanager.entities.member;
 import fr.treemanager.entities.payment.Issuer;
+import fr.treemanager.entities.payment.Payment;
 import fr.treemanager.entities.payment.Receiver;
 import fr.treemanager.entities.tree.Tree;
 
@@ -74,6 +75,10 @@ public class Member implements Issuer, Receiver {
     public LinkedList<Tree> getVotes() {
         return votes;
     }
+
+    // empty body because Member doesn't handle money
+    public void tryToPay(Payment payment) {}
+    public void processPayment(Payment payment) {}
 
     @Override
     public boolean equals(Object o) {

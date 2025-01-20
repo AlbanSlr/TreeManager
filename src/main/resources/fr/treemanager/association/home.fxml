@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="384.0" prefWidth="201.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="balance" />
+         </children>
+      </VBox>
+      <VBox prefHeight="400.0" prefWidth="220.0">
+         <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="passer a l'exercice suivant" />
+            <Button mnemonicParsing="false" text="Button" />
+         </children>
+      </VBox>
+   </children>
+</HBox>

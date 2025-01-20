@@ -42,8 +42,18 @@ public abstract class Payment {
         return state;
     }
 
-    protected void setPaid() {
+    protected void process() {
+        try {
+            issuer.tryToPay(this);
+        } catch (NotEnoughFunds e) {
+            System.err.println("Payment " + description +  " failed");
+            return;
+        }
+
         this.state = PaymentState.PAID;
         paymentDate = new Date();
+
+        receiver.processPayment(this);
+
     }
 }

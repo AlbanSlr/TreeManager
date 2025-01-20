@@ -1,4 +1,4 @@
-package fr.treemanager.controllers;
+package fr.treemanager.controllers.member;
 
 import fr.treemanager.entities.association.Association;
 import fr.treemanager.entities.member.Member;

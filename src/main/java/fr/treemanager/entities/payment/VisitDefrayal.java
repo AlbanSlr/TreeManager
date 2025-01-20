@@ -8,9 +8,10 @@ public class VisitDefrayal extends Payment {
     private final static double VISIT_DEFRAYAL_AMOUNT = 69;
     private final Visit visit;
 
-    public VisitDefrayal(Visit visit, Association association, Member member) {
-        super(association, member, "Defrayal of" + member, VISIT_DEFRAYAL_AMOUNT);
+    public VisitDefrayal(Visit visit, Association association) {
+        super(association, visit.getMember(), "Defrayal of" + visit.getMember(), VISIT_DEFRAYAL_AMOUNT);
         this.visit = visit;
+        this.process();
     }
 
     public Visit getVisit() {

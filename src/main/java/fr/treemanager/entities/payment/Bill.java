@@ -11,7 +11,7 @@ public class Bill extends Payment {
                 return this.state == PaymentState.PAID;
         }
 
-        public void setPaid() {
-                super.setPaid();
+        public void process() {
+                super.process();
         }
 }

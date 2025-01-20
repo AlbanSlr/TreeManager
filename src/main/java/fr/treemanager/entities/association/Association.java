@@ -6,7 +6,6 @@ import fr.treemanager.entities.member.Member;
 import fr.treemanager.entities.visit.Visit;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Association implements Receiver, Issuer {
@@ -34,7 +33,6 @@ public class Association implements Receiver, Issuer {
 
     public void addPayment(Payment payment) {
         this.payments.add(payment);
-        this.computeBalance();
     }
 
     public void addMember(Member member) {
@@ -83,25 +81,6 @@ public class Association implements Receiver, Issuer {
         return visits;
     }
 
-    public void computeBalance() {
-        this.balance = 0;
-        for(Payment payment : payments) {
-            if(payment.getState() != PaymentState.PAID) continue;
-
-            if (payment.getReceiver() == this){
-                balance += payment.getAmount();
-            } else if(payment.getIssuer() == this) {
-                balance -= payment.getAmount();
-            } else {
-                throw new IllegalStateException("An invalid payment has been found");
-            }
-        }
-
-        if(balance < 0) {
-            throw new IllegalStateException("The balance can be negative");
-        }
-    }
-
     public boolean isSubscribed(Member member) {
 
         if(!members.contains(member)) {
@@ -119,5 +98,16 @@ public class Association implements Receiver, Issuer {
 
         return false;
 
+    }
+
+     public void tryToPay(Payment payment) throws NotEnoughFunds {
+        if(this.balance < payment.getAmount()) {
+            throw new NotEnoughFunds();
+        }
+        this.balance -= payment.getAmount();
+    }
+
+    public void processPayment(Payment payment) {
+        this.balance += payment.getAmount();
     }
 }

@@ -42,7 +42,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.treemanager.views.AbstractNavigationView">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -104,12 +104,12 @@
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="ToVisitHistory" mnemonicParsing="false" onAction="#switchToVisitHistory" prefWidth="200.0" text="Historique des visites">
+                        <Button fx:id="toVisitHistory" mnemonicParsing="false" onAction="#switchToVisitHistory" prefWidth="200.0" text="Historique des visites">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="treeRanking" mnemonicParsing="false" onAction="#switchToTreeRanking" prefWidth="200.0" text="Classement des arbres" />
+                        <Button fx:id="toTreeRanking" mnemonicParsing="false" onAction="#switchToTreeRanking" prefWidth="200.0" text="Classement des arbres" />
                      </children></VBox>
                </children>
             </AnchorPane>

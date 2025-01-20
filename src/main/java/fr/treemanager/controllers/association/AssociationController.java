@@ -2,9 +2,11 @@ package fr.treemanager.controllers.association;
 
 import fr.treemanager.entities.association.Association;
 import fr.treemanager.entities.member.Member;
+import fr.treemanager.entities.payment.VisitDefrayal;
 import fr.treemanager.entities.visit.Visit;
 import fr.treemanager.entities.payment.Bill;
 import fr.treemanager.entities.member.Donator;
+import fr.treemanager.entities.visit.VisitState;
 
 import java.util.Date;
 import java.util.List;
@@ -29,17 +31,15 @@ public class AssociationController {
         return association.getMembers();
     }
 
-    public void payBill(Bill bill) {
-        if (bill.isPaid()) {
-            throw new IllegalStateException("Bill already paid");
-        } else {
-           if (association.getBalance() >= bill.getAmount()) {
-               bill.setPaid();
-               this.association.computeBalance();
-           } else {
-               throw new RuntimeException("Not enough money in the association balance");
-           }
+    public void defrayVisit(Visit visit) {
+
+        if(visit.getState() != VisitState.DONE) {
+            throw new IllegalArgumentException("Visit must be done to be defrayed");
         }
+
+        VisitDefrayal visitDefrayal = new VisitDefrayal(visit, association);
+        this.association.addPayment(visitDefrayal);
+
     }
 
     public void addDonator(Donator donator) {
