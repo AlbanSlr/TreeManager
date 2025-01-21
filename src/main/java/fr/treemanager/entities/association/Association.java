@@ -15,7 +15,7 @@ public class Association implements Receiver, Issuer {
     private final List<Payment> payments;
     private final List<Donator> donators;
     private final List<Visit> visits;
-    private BudgetYear budgetYear;
+    private final BudgetYear budgetYear;
 
     public Association(String name) {
         this.name = name;
@@ -57,6 +57,10 @@ public class Association implements Receiver, Issuer {
         }
     }
 
+    public List<Donator> getDonators() {
+        return donators;
+    }
+
     public List<Member> getMembers() {
         return members;
     }
@@ -89,8 +93,8 @@ public class Association implements Receiver, Issuer {
 
         for(Payment payment : payments) {
 
-            if(payment instanceof Subscription subcription) {
-                if(budgetYear.include(payment.getPaymentDate()) && subcription.getMember() == member) {
+            if(payment instanceof Subscription subscription) {
+                if(budgetYear.include(payment.getPaymentDate()) && subscription.getMember() == member) {
                     return true;
                 }
             }

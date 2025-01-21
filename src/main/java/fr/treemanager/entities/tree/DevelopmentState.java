@@ -5,5 +5,15 @@ public enum DevelopmentState {
     YOUNG,
     YOUNG_ADULT,
     ADULT,
-    MATURE,
+    MATURE;
+
+    public static DevelopmentState parse(String state) {
+        return switch (state) {
+            case "Jeune" -> YOUNG;
+            case "Jeune adulte" -> YOUNG_ADULT;
+            case "Adulte" -> ADULT;
+            case "Mature" -> MATURE;
+            default -> NULL;
+        };
+    }
 }
