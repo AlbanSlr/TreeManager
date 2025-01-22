@@ -1,0 +1,20 @@
+package fr.treemanager;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+
+public class MemberApp extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(AssociationApp.class.getResource("member/layout.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 900, 600);
+        stage.setTitle("Tree Manager - Member");
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+}

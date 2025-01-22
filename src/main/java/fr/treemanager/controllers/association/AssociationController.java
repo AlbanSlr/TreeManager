@@ -4,10 +4,12 @@ import fr.treemanager.entities.association.Association;
 import fr.treemanager.entities.member.Member;
 import fr.treemanager.entities.payment.VisitDefrayal;
 import fr.treemanager.entities.visit.Visit;
-import fr.treemanager.entities.payment.Bill;
 import fr.treemanager.entities.member.Donator;
 import fr.treemanager.entities.visit.VisitState;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -15,8 +17,19 @@ public class AssociationController {
 
     private final Association association;
 
+
     public AssociationController(Association association) {
         this.association = association;
+    }
+
+    public AssociationController() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.association = mapper.readValue(new File("src/main/resources/association.json"), Association.class);
+            //mapper.writeValue(new File("src/main/resources/association.json"), association);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while reading association from file", e);
+        }
     }
 
     public void addMember(Member member) {

@@ -2,7 +2,6 @@ package fr.treemanager.entities;
 
 import java.util.List;
 
-import fr.treemanager.controllers.municipality.MunicipalityController;
 import fr.treemanager.entities.payment.Issuer;
 import fr.treemanager.entities.payment.NotEnoughFunds;
 import fr.treemanager.entities.payment.Payment;
@@ -10,10 +9,6 @@ import fr.treemanager.entities.tree.Tree;
 
 public class Municipality implements Issuer {
     private List<Tree> trees;
-
-    public Municipality() {
-        Tree.loadTreesFromCSV();
-    }
 
     public Municipality(List<Tree> trees) {
         this.trees = trees;

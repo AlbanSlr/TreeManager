@@ -1,6 +1,7 @@
 module fr.treemanager {
     requires javafx.controls;
     requires javafx.fxml;
+    requires com.fasterxml.jackson.databind;
     requires java.logging;
 
     opens fr.treemanager to javafx.fxml;
