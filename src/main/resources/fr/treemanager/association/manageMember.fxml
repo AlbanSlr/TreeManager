@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="315.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="member gesture" />
+      <ScrollPane fx:id="manageMemberScrollPane" layoutX="34.0" layoutY="73.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="655.0" />
+      <Text layoutX="179.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestion des membres de l'association">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

@@ -1,10 +1,9 @@
 package fr.treemanager.controllers.municipality;
 
-import fr.treemanager.entities.Municipality;
-import fr.treemanager.entities.association.Association;
-import fr.treemanager.entities.payment.Bill;
-import fr.treemanager.entities.payment.Payment;
-import fr.treemanager.entities.tree.Tree;
+import fr.treemanager.models.Municipality;
+import fr.treemanager.models.association.Association;
+import fr.treemanager.models.payment.Bill;
+import fr.treemanager.models.tree.Tree;
 
 public class MunicipalityController {
     private final Municipality municipality;
@@ -15,9 +14,9 @@ public class MunicipalityController {
         this.association = association;
     }
 
-    public void createBill(String billDescription, double amount) {
-        Payment payment = new Bill(municipality, association, billDescription,amount);
-        this.association.addPayment(payment);
+    public void createBill(String description, double amount) {
+        Bill bill = new Bill(description,amount);
+        this.association.addBill(bill);
     }
 
 

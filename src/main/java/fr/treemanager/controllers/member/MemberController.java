@@ -1,12 +1,12 @@
 package fr.treemanager.controllers.member;
 
-import fr.treemanager.entities.association.Association;
-import fr.treemanager.entities.member.Member;
-import fr.treemanager.entities.payment.Subscription;
-import fr.treemanager.entities.tree.Tree;
-import fr.treemanager.entities.visit.Visit;
-import fr.treemanager.entities.visit.VisitState;
-import fr.treemanager.entities.visit.Report;
+import fr.treemanager.models.association.Association;
+import fr.treemanager.models.member.Member;
+import fr.treemanager.models.payment.Subscription;
+import fr.treemanager.models.tree.Tree;
+import fr.treemanager.models.visit.Visit;
+import fr.treemanager.models.visit.VisitState;
+import fr.treemanager.models.visit.Report;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,9 @@ public class MemberController {
             throw new IllegalArgumentException("Member is already subscribed");
         }
 
-        Subscription subscription = new Subscription(association, member);
-        this.association.addPayment(subscription);
+        Subscription subscription = new Subscription("Souscription de " + member, member.getId());
+        subscription.process(association);
+        this.association.addSubscription(subscription);
     }
 
     public void unsubscribe() {
