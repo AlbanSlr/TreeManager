@@ -46,7 +46,7 @@ public class MemberNavigationView implements Initializable {
     }
 
     public void switchToMemberHome(ActionEvent event){
-        this.switchContent("member/home.fxml", new MemberHomeView(this.memberController));
+        this.switchContent("member/memberVisit.fxml", new MemberHomeView(this.memberController));
     }
 
     public void switchToManageCotisations(ActionEvent event){

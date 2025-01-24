@@ -35,7 +35,7 @@ public class MemberApp extends Application {
         }
 
         // Charger la fenêtre principale avec le membre connecté
-        FXMLLoader mainLoader = new FXMLLoader(MemberApp.class.getResource("member/layout.fxml"));
+        FXMLLoader mainLoader = new FXMLLoader(MemberApp.class.getResource("/fr/treemanager/member/layout.fxml"));
         MemberNavigationView navigationView = new MemberNavigationView(connexionView.getConnectedMember());
         mainLoader.setController(navigationView);
         Scene scene = new Scene(mainLoader.load(), 900, 600);
