@@ -50,7 +50,7 @@ public class AssociationDonationsView extends AbstractAssociationView implements
         List<String> donatorNames = new ArrayList<>(controller.getDonations().stream()
                 .map(donator -> donator.getName())
                 .toList());
-        donatorNames.add("Nouveau Donateur");
+        donatorNames.add("Nouveau donateur");
         entityComboBox.getItems().addAll(donatorNames);
 
         VBox donationsVBox = new VBox(10);
@@ -215,22 +215,16 @@ public class AssociationDonationsView extends AbstractAssociationView implements
         String amount = donation.getAmount() + " €";
         String state = donation.getState().toString();
 
-        Text firstNameText = new Text(firstName);
+        Text firstNameText = new Text(name);
         firstNameText.setWrappingWidth(100);
-        Text lastNameText = new Text(lastName);
+        Text lastNameText = new Text(amount);
         lastNameText.setWrappingWidth(100);
-        Text roleText = new Text(isPresident ? "Président" : "Membre");
+        Text roleText = new Text(state);
         roleText.setWrappingWidth(100);
 
-        Button supprimerButton = new Button("Supprimer");
-        supprimerButton.setOnAction(event -> {
-            controller.removeMember(member);
-            initialize(null, null);
-        });
 
-        supprimerButton.setPrefWidth(100);
 
-        hBox.getChildren().addAll(firstNameText, lastNameText, roleText, supprimerButton);
+        hBox.getChildren().addAll(firstNameText, lastNameText, roleText);
 
         return hBox;
     }

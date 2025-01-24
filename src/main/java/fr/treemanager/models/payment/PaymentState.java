@@ -3,7 +3,7 @@ package fr.treemanager.models.payment;
 public enum PaymentState {
     PENDING,
     PAID,
-    CANCELED
+    CANCELED;
 
     @Override
     public String toString() {
