@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public final class Tree {
-    private static final String CSV_FILE_PATH = "./resources/trees.csv";
+
+    private static final String CSV_FILE_PATH = "./trees.csv";
 
     private final UUID id;
     private final String gender;
@@ -105,6 +106,8 @@ public final class Tree {
     }
 
     public static List<Tree> loadTreesFromCSV() {
+        String currentPath = System.getProperty("user.dir");
+        System.out.println("Current path: " + currentPath);
         List<Tree> trees = new ArrayList<>();
 
         List<String[]> data = CSVReader.read(CSV_FILE_PATH);
@@ -115,6 +118,9 @@ public final class Tree {
                 String gender = row[9];
                 String species = row[10];
                 String commonFrenchName = row[8];
+                if (commonFrenchName.equals("If") || commonFrenchName.equals(null) || commonFrenchName.equals("") || commonFrenchName.equals(" ")) {
+                    commonFrenchName = "-";
+                }
                 String address = row[6];
                 double height = Double.parseDouble(row[13]);
                 double circumference = Double.parseDouble(row[12]);

@@ -15,6 +15,7 @@ module fr.treemanager {
     opens fr.treemanager.models.payment to com.fasterxml.jackson.databind;
 
     exports fr.treemanager;
+    exports  fr.treemanager.models to com.fasterxml.jackson.databind;
     exports fr.treemanager.models.payment to com.fasterxml.jackson.databind;
     exports fr.treemanager.models.association to com.fasterxml.jackson.databind;
     exports fr.treemanager.models.member to com.fasterxml.jackson.databind;

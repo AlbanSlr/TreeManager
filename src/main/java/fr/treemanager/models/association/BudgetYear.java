@@ -1,5 +1,7 @@
 package fr.treemanager.models.association;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -24,6 +26,11 @@ public class BudgetYear {
 
     }
 
+    public BudgetYear(@JsonProperty("begin") Date begin,@JsonProperty("end") Date end) {
+        this.begin = begin;
+        this.end = end;
+    }
+
     public boolean include(Date date) {
         return date.after(begin) && date.before(end);
     }
@@ -45,5 +52,13 @@ public class BudgetYear {
         calendar.setTime(this.begin);
         int year = calendar.get(Calendar.YEAR);
         return year + " - " + (year + 1);
+    }
+
+    public Date getBegin() {
+        return begin;
+    }
+
+    public Date getEnd() {
+        return end;
     }
 }

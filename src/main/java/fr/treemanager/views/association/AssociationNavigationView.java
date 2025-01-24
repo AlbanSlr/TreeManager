@@ -51,7 +51,7 @@ public class AssociationNavigationView implements Initializable {
     }
 
     public void switchToCreateTreeVisit(ActionEvent event){
-
+        this.switchContent("association/createTreeVisit.fxml", new AssociationCreateVisitView(this.associationController));
     }
 
     public void switchToDefrayals(ActionEvent event){
@@ -59,7 +59,7 @@ public class AssociationNavigationView implements Initializable {
     }
 
     public void switchToDonations(ActionEvent event){
-
+        this.switchContent("association/donations.fxml", new AssociationDonationsView(this.associationController));
     }
 
     public void switchToBills(ActionEvent event){
@@ -84,8 +84,6 @@ public class AssociationNavigationView implements Initializable {
             // load fxml file
             FXMLLoader fxml = new FXMLLoader(AssociationApp.class.getResource(filename));
             fxml.setController(viewController);
-
-            System.out.println("Switching to " + filename);
 
             contentPane.getChildren().clear();
             contentPane.getChildren().add(fxml.load());

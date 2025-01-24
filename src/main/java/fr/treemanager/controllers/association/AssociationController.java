@@ -1,11 +1,13 @@
 package fr.treemanager.controllers.association;
 
+import fr.treemanager.models.Municipality;
 import fr.treemanager.models.association.Association;
 import fr.treemanager.models.association.BudgetYear;
 import fr.treemanager.models.member.Member;
+import fr.treemanager.models.payment.Donation;
 import fr.treemanager.models.payment.VisitDefrayal;
+import fr.treemanager.models.tree.Tree;
 import fr.treemanager.models.visit.Visit;
-import fr.treemanager.models.member.Donator;
 import fr.treemanager.models.visit.VisitState;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +27,7 @@ public class AssociationController implements FileChangeListener {
         try {
             this.association = mapper.readValue(new File("./association.json"), Association.class);
         } catch (Exception e) {
-            this.association = new Association("Make America Great Again");
+            this.association = new Association("Make America Great Again", new Municipality(Tree.loadTreesFromCSV()));
             this.save();
         }
 
@@ -77,14 +79,6 @@ public class AssociationController implements FileChangeListener {
 
     }
 
-    public void addDonator(Donator donator) {
-        association.addDonator(donator);
-    }
-
-    public void removeDonator(Donator donator) {
-        association.removeDonator(donator);
-    }
-
     public void addScheduledVisit(Visit visit) {
         if(visit.getDate().after(new Date())) {
             throw new IllegalArgumentException("The scheduler visit must be in the future");
@@ -109,6 +103,17 @@ public class AssociationController implements FileChangeListener {
         return association.getBalance();
     }
 
+    public List<Tree> getRemarkableTrees() {
+        return association.getMunicipality().getRemarkableTrees();
+    }
+
+    public List<Donation> getDonations() {
+        return association.getDonations();
+    }
+
+    public void processDonation(Donation donation) {
+        donation.process(association);
+    }
 
 
     //TODO reveiw compte rendu visite (report)

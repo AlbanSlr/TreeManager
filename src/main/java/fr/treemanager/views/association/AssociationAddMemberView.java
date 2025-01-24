@@ -37,6 +37,7 @@ public class AssociationAddMemberView extends AbstractAssociationView implements
         String firstName = firstNameTF.getText();
         String lastName = lastNameTF.getText();
         controller.addMember(new Member(lastName, firstName, Role.MEMBER));
+        System.out.println("Member added");
     }
 
 

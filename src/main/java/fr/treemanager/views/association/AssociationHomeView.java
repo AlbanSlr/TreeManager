@@ -5,7 +5,9 @@ import fr.treemanager.views.AbstractAssociationView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.text.Text;
 
 import java.net.URL;
@@ -32,8 +34,17 @@ public class AssociationHomeView extends AbstractAssociationView implements Init
     }
 
     public void toNextExercize(ActionEvent event) {
-        controller.nextBudgetYear();
-        budgetYearText.setText(controller.getBudgetYear());
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation");
+        alert.setHeaderText(null);
+        alert.setContentText("Êtes-vous sûr de vouloir passer à l'année fiscale suivante ?");
+
+        alert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                controller.nextBudgetYear();
+                budgetYearText.setText(controller.getBudgetYear());
+            }
+        });
     }
 
 

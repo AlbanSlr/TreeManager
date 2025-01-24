@@ -1,7 +1,7 @@
 package fr.treemanager.models.association;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import fr.treemanager.models.member.Donator;
+import fr.treemanager.models.Municipality;
 import fr.treemanager.models.payment.*;
 import fr.treemanager.models.member.Member;
 import fr.treemanager.models.visit.Visit;
@@ -15,19 +15,20 @@ public class Association {
     private final List<Member> members = new ArrayList<>();
     private final String name;
     private double balance = 0;
+    private final Municipality municipality;
 
     private final List<Bill> bills = new ArrayList<>();
     private final List<Donation> donations = new ArrayList<>();
     private final List<Subscription> subscriptions = new ArrayList<>();
     private final List<VisitDefrayal> visitDefrayals = new ArrayList<>();
 
-    private final List<Donator> donators = new ArrayList<>();
     private final List<Visit> visits = new ArrayList<>();
     private final BudgetYear budgetYear = new BudgetYear();
 
-    public Association(@JsonProperty("name") String name) {
+    public Association(@JsonProperty("name") String name,@JsonProperty("municipality") Municipality municipality) {
         this.id = UUID.randomUUID();
         this.name = name;
+        this.municipality = municipality;
     }
 
     public UUID getId() {
@@ -44,10 +45,6 @@ public class Association {
 
     public void removeMember(Member member) {
         members.remove(member);
-    }
-
-    public List<Donator> getDonators() {
-        return donators;
     }
 
     public List<Member> getMembers() {
@@ -78,14 +75,6 @@ public class Association {
         this.visitDefrayals.add(visitDefrayal);
     }
 
-    public void addDonator(Donator donator) {
-        this.donators.add(donator);
-    }
-
-    public void removeDonator(Donator donator) {
-        this.donators.remove(donator);
-    }
-
     public void addScheduledVisit(Visit visit) {
         this.visits.add(visit);
     }
@@ -99,18 +88,14 @@ public class Association {
     }
 
     public boolean isSubscribed(Member member) {
-
         if(!members.contains(member)) {
             return false;
         }
-
         for(Subscription subscription : subscriptions) {
                 if(budgetYear.include(subscription.getPaymentDate()) && subscription.getMemberId() == member.getId()) {
                     return true;
-
             }
         }
-
         return false;
 
     }
@@ -128,5 +113,9 @@ public class Association {
 
     public BudgetYear getBudgetYear() {
         return budgetYear;
+    }
+
+    public Municipality getMunicipality() {
+        return municipality;
     }
 }

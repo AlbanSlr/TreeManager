@@ -8,20 +8,29 @@ import java.util.UUID;
 
 public class Donation extends Payment {
     private final UUID donatorId;
+    private final String name;
 
-    public Donation(@JsonProperty("description") String description, @JsonProperty("amount") double amount, @JsonProperty("donatorId") UUID donatorId) {
+    public Donation(@JsonProperty("description") String description, @JsonProperty("amount") double amount,@JsonProperty("name") String name, @JsonProperty("donatorId") UUID donatorId) {
         super(description, amount);
         this.donatorId = donatorId;
+        this.name = name;
+    }
+
+    public UUID getDonatorId() {
+        return donatorId;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void process(Association association) {
-        try {
-            association.processPayment(this);
-        } catch (NotEnoughFunds e) {
-            System.err.println("Association " + association.getName() + " has not enough money");
-            return;
-        }
+        association.processPayment(this);
         this.state = PaymentState.PAID;
         this.paymentDate = new Date();
+    }
+
+    public void deny(){
+        this.state = PaymentState.CANCELED;
     }
 }
