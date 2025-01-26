@@ -85,4 +85,7 @@ public class Visit {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
         return sdf.format(date);
     }
+
+    public void setState(VisitState visitState) {
+    }
 }

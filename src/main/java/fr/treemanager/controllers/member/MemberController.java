@@ -124,5 +124,4 @@ public class MemberController {
                 .orElse(null); // Retourne null si aucun arbre n'est trouvé
     }
 
-
 }

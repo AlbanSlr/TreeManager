@@ -5,11 +5,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <TableView fx:id="visitsTable" prefWidth="600">
+   <TableView fx:id="visitTable" prefWidth="600">
       <columns>
          <TableColumn fx:id="treeNameColumn" prefWidth="150" text="Nom de l'arbre" />
          <TableColumn fx:id="visitDateColumn" prefWidth="150" text="Date de la visite" />
          <TableColumn fx:id="visitStateColumn" prefWidth="150" text="État de la visite" />
+         <TableColumn fx:id="actionColumn" prefWidth="150" text="Actions" /> <!-- Ajoute cette ligne -->
       </columns>
    </TableView>
 </VBox>
