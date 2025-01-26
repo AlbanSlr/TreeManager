@@ -8,11 +8,11 @@
 
 <Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="177.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Historique des visites d'arbres remarquables">
+      <Text layoutX="279.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Promouvoir un arbre">
          <font>
             <Font size="20.0" />
          </font></Text>
-      <ScrollPane fx:id="visitHistoryScrollPane" layoutX="41.0" layoutY="138.0" prefHeight="237.0" prefWidth="647.0">
+      <ScrollPane layoutX="41.0" layoutY="138.0" prefHeight="237.0" prefWidth="647.0">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
         </content>
