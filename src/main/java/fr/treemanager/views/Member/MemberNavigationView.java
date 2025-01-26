@@ -35,9 +35,8 @@ public class MemberNavigationView implements Initializable {
     private final MemberController memberController;
 
 
-
-    public MemberNavigationView(Member connectedMember) {
-        this.memberController = new MemberController(connectedMember, new Association("ASSOTEST"));
+    public MemberNavigationView(MemberController controller) {
+        this.memberController = controller;
     }
 
     @Override

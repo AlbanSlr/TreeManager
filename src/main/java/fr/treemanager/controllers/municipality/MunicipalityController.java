@@ -12,7 +12,7 @@ public class MunicipalityController {
     private final Municipality municipality;
     private Association association;
 
-    public MunicipalityController(Municipality municipality, Association association) {
+    public MunicipalityController() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             this.association = mapper.readValue(new File("./association.json"), Association.class);
@@ -40,5 +40,9 @@ public class MunicipalityController {
 
     public void acceptRemarkableClassificationTree (Tree tree) {
         tree.setRemarkable(true); // TODO choose wether or not to set the tree as remarkable
+    }
+
+    public void save(){
+
     }
 }

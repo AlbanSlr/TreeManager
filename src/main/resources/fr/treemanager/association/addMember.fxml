@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-
-<Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="315.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="add member" />
+      <Text layoutX="80.0" layoutY="110.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ajouter un membre">
+         <font>
+            <Font size="20.0" />
+         </font></Text>
+      <Text layoutX="80.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nom" />
+      <Text layoutX="80.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Prenom" wrappingWidth="48.13671875" />
+      <TextField fx:id="lastNameTF" layoutX="147.0" layoutY="133.0" />
+      <TextField fx:id="firstNameTF" layoutX="147.0" layoutY="173.0" />
+      <Button fx:id="addMemberButton" layoutX="132.0" layoutY="220.0" mnemonicParsing="false" onAction="#addMember" text="Enregister le nouveau membre" />
    </children>
 </Pane>

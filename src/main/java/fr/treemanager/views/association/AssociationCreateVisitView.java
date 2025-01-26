@@ -144,7 +144,7 @@ public class AssociationCreateVisitView extends AbstractAssociationView implemen
             alert.showAndWait().ifPresent(response -> {
                 LocalDate selectedDate = datePicker.getValue();
                 if (selectedDate != null && selectedDate.isAfter(LocalDate.now())) {
-                    controller.addScheduledVisit(new Visit(UUID.randomUUID(), Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), selectedTree.getId()));
+                    controller.addScheduledVisit(new Visit(null, Date.from(selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant()), selectedTree.getId()));
                     System.out.println("Visit created for date: " + selectedDate);
                 } else {
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);

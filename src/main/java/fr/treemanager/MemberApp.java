@@ -1,5 +1,6 @@
 package fr.treemanager;
 
+import fr.treemanager.controllers.member.MemberController;
 import fr.treemanager.views.Member.MemberConnexionView;
 import fr.treemanager.views.Member.MemberNavigationView;
 import javafx.application.Application;
@@ -34,9 +35,12 @@ public class MemberApp extends Application {
             System.exit(0); // Fermer l'application si aucun utilisateur
         }
 
+        //
+
         // Charger la fenêtre principale avec le membre connecté
         FXMLLoader mainLoader = new FXMLLoader(MemberApp.class.getResource("member/layout.fxml"));
-        MemberNavigationView navigationView = new MemberNavigationView(connexionView.getConnectedMember());
+        MemberController controller = new MemberController(connexionView.getConnectedMember().getId());
+        MemberNavigationView navigationView = new MemberNavigationView(controller);
         mainLoader.setController(navigationView);
         Scene scene = new Scene(mainLoader.load(), 900, 600);
         primaryStage.setTitle("Tree Manager - Member");

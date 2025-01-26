@@ -2,6 +2,7 @@ package fr.treemanager.views.association;
 
 import fr.treemanager.AssociationApp;
 import fr.treemanager.controllers.association.AssociationController;
+import fr.treemanager.controllers.municipality.MunicipalityController;
 import fr.treemanager.views.AbstractAssociationView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

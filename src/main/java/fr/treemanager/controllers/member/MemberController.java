@@ -1,5 +1,7 @@
 package fr.treemanager.controllers.member;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import fr.treemanager.models.Municipality;
 import fr.treemanager.models.association.Association;
 import fr.treemanager.models.member.Member;
 import fr.treemanager.models.payment.Subscription;
@@ -8,17 +10,29 @@ import fr.treemanager.models.visit.Visit;
 import fr.treemanager.models.visit.VisitState;
 import fr.treemanager.models.visit.Report;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MemberController {
 
     private final Member member;
-    private final Association association;
+    private Association association;
 
-    public MemberController(Member member, Association association) {
-        this.member = member;
-        this.association = association;
+    public MemberController(UUID memberID) {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.association = mapper.readValue(new File("./association.json"), Association.class);
+        } catch (Exception e) {
+
+            System.out.println("Error while reading association from file, creating a new one : " + e);
+            this.association = new Association("lez arbres", new Municipality(Tree.loadTreesFromCSV()));
+        }
+        this.member = association.getMembers().stream()
+                .filter(m -> m.getId().equals(memberID))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Member not found"));
     }
 
     public Member getMember() {
@@ -75,7 +89,7 @@ public class MemberController {
     }
 
     public List<Tree> getArbres(){
-        return association.getMunicipality().getNoneRemarkableTrees();
+        return association.getMunicipality().getNonRemarkableTrees();
     }
 
 }
