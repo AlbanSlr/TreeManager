@@ -27,10 +27,10 @@ public class MemberNavigationView implements Initializable {
     protected StackPane contentPane;
 
     @FXML
-    private Button toMemberHome, toManageCotisations, toMemberVote, toMemberVisit, toConnexion,receiveNotification;
+    private Button toMemberHome, toManageCotisations, toMemberVote, toMemberVisit, toConnexion,receiveNotification,updateDataButton, reloadAppButton;
 
     @FXML
-    private ActionEvent switchToMemberHome, switchToManageCotisations, switchToMemberVote, switchToMemberVisit, switchToConnexion;
+    private ActionEvent switchToMemberHome, switchToManageCotisations, switchToMemberVote, switchToMemberVisit, switchToConnexion,updateData, reloadApp;
 
     private final MemberController memberController;
 
@@ -79,9 +79,15 @@ public class MemberNavigationView implements Initializable {
         }
     }
 
-    public void receiveNotification(ActionEvent event){
-
+    public void updateData(ActionEvent event){
+        memberController.save();
     }
+
+    public void reloadApp(ActionEvent event){
+        memberController.reload();
+        this.initialize(null, null);
+    }
+
 
 
     protected void switchContent(String filename, AbstractMemberView viewController) {

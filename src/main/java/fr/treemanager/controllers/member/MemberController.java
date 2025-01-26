@@ -11,6 +11,7 @@ import fr.treemanager.models.visit.VisitState;
 import fr.treemanager.models.visit.Report;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -62,7 +63,7 @@ public class MemberController {
             throw new IllegalArgumentException("Visit must be scheduled to be selected");
         }
 
-        if(!visit.isBooked()) {
+        if(visit.isBooked()) {
             throw new IllegalArgumentException("Visit must not be booked to be selected");
         }
 
@@ -90,6 +91,25 @@ public class MemberController {
 
     public List<Tree> getArbres(){
         return association.getMunicipality().getNonRemarkableTrees();
+    }
+
+
+    public void save() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("./association.json"), association);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void reload(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.association = mapper.readValue(new File("./association.json"), Association.class);
+        } catch (Exception e) {
+            System.err.println("Erreur du rechargement des données. " + e);
+        }
     }
 
 }

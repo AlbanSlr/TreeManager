@@ -12,5 +12,5 @@
          <TableColumn text="Vote" fx:id="actionColumn" prefWidth="100" />
       </columns>
    </TableView>
-   <Label fx:id="infoLabel" text="Vous pouvez voter pour 5 arbres maximum." />
+   <Text fx:id="infoLabel" text="Vous pouvez voter pour 5 arbres maximum." />
 </VBox>
