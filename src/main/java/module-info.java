@@ -10,6 +10,7 @@ module fr.treemanager {
     opens fr.treemanager.views.association to javafx.fxml;
     opens fr.treemanager.views.Member to javafx.fxml;
     opens fr.treemanager.models.visit to javafx.base, com.fasterxml.jackson.databind;
+    opens fr.treemanager.views.municipality to javafx.fxml;
 
     opens fr.treemanager.models to com.fasterxml.jackson.databind;
     opens fr.treemanager.models.association to com.fasterxml.jackson.databind;

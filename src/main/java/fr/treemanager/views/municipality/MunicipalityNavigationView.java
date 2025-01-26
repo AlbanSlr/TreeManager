@@ -25,10 +25,10 @@ public class MunicipalityNavigationView implements Initializable {
     private final MunicipalityController municipalityController;
 
     @FXML
-    private Button toHome;
+    private Button toHome, toAddTree, toDestroyTree, toPromoteTree, toCreateBill,  updateDataButton, reloadAppButton;
 
     @FXML
-    private ActionEvent switchToHome;
+    private ActionEvent switchToHome, switchToAddTree,switchToDestroyTree, switchToPromoteTree, switchToCreateBill, updateData, reloadApp;
 
     public MunicipalityNavigationView(MunicipalityController controller) {
         this.municipalityController = controller;
@@ -43,6 +43,22 @@ public class MunicipalityNavigationView implements Initializable {
         this.switchContent("municipality/home.fxml", new MunicipalityHomeView(this.municipalityController));
     }
 
+    public void switchToAddTree(ActionEvent event){
+        this.switchContent("municipality/addTree.fxml", new MunicipalityAddTreeView(this.municipalityController));
+    }
+
+    public void switchToDestroyTree(ActionEvent event){
+        this.switchContent("municipality/destroyTree.fxml", new MunicipalityDestroyTreeView(this.municipalityController));
+    }
+
+    public void switchToPromoteTree(ActionEvent event){
+        this.switchContent("municipality/promoteTree.fxml", new MunicipalityPromoteTreeView(this.municipalityController));
+    }
+
+    public void switchToCreateBill(ActionEvent event){
+        this.switchContent("municipality/createBill.fxml", new MunicipalityCreateBillView(this.municipalityController));
+    }
+
 
     protected void switchContent(String filename, AbstractMunicipalityView viewController) {
         try {
@@ -55,5 +71,13 @@ public class MunicipalityNavigationView implements Initializable {
         } catch (IOException exception) {
             Logger.getLogger(AssociationNavigationView.class.getName()).log(Level.SEVERE, null, exception);
         }
+    }
+
+    public void updateData(ActionEvent event) {
+        this.municipalityController.save();
+    }
+
+    public void reloadApp(ActionEvent event) {
+        this.municipalityController.reload();
     }
 }

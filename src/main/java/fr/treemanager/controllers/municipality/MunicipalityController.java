@@ -1,5 +1,6 @@
 package fr.treemanager.controllers.municipality;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.treemanager.models.Municipality;
 import fr.treemanager.models.association.Association;
@@ -7,6 +8,8 @@ import fr.treemanager.models.payment.Bill;
 import fr.treemanager.models.tree.Tree;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 public class MunicipalityController {
     private final Municipality municipality;
@@ -42,7 +45,26 @@ public class MunicipalityController {
         tree.setRemarkable(true); // TODO choose wether or not to set the tree as remarkable
     }
 
-    public void save(){
+    public void save() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            mapper.writeValue(new File("./association.json"), association);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
+    public void reload(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.association = mapper.readValue(new File("./association.json"), Association.class);
+        } catch (Exception e) {
+            System.err.println("Erreur du rechargement des données. " + e);
+        }
+    }
+
+    @JsonIgnore
+    public List<Tree> getTrees() {
+        return this.municipality.getTrees();
     }
 }

@@ -101,27 +101,22 @@
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="toManageMembers" mnemonicParsing="false" onAction="#switchToManageMembers" prefWidth="200.0" text="Ajouter un arbre">
+                        <Button fx:id="toAddTree" mnemonicParsing="false" onAction="#switchToAddTree" prefWidth="200.0" text="Ajouter un arbre">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="toAddMember" mnemonicParsing="false" onAction="#switchToAddMember" prefWidth="200.0" text="Détruire un arbre">
+                        <Button fx:id="toDestroyTree" mnemonicParsing="false" onAction="#switchToDestroyTree" prefWidth="200.0" text="Détruire un arbre">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="toCreateTreeVisit" mnemonicParsing="false" onAction="#switchToCreateTreeVisit" prefWidth="200.0" text="Promouvoir un arbre">
+                        <Button fx:id="toPromoteTree" mnemonicParsing="false" onAction="#switchToPromoteTree" prefWidth="200.0" text="Promouvoir un arbre">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="toBills" mnemonicParsing="false" onAction="#switchToBills" prefWidth="200.0" text="Créer une facture">
-                           <VBox.margin>
-                              <Insets bottom="12.0" />
-                           </VBox.margin>
-                        </Button>
-                        <Button fx:id="toVisitHistory" mnemonicParsing="false" onAction="#switchToVisitHistory" prefWidth="200.0" text="Historique des visites">
+                        <Button fx:id="toCreateBill" mnemonicParsing="false" onAction="#switchToCreateBill" prefWidth="200.0" text="Créer une facture">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
