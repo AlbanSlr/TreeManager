@@ -10,7 +10,7 @@ public class Bill extends Payment{
             super(description, amount);
         }
 
-        protected void process(Association association) {
+        public void process(Association association) {
             try {
                 association.tryToPay(this);
             } catch (NotEnoughFunds e) {

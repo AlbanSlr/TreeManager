@@ -2,7 +2,9 @@ package fr.treemanager.models.payment;
 
 import fr.treemanager.models.association.Association;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public abstract class Payment {
@@ -40,4 +42,9 @@ public abstract class Payment {
     }
 
     protected abstract void process(Association association);
+
+    public String getDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
+        return sdf.format(paymentDate);
+    }
 }

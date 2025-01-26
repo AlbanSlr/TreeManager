@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <Pane prefHeight="500.0" prefWidth="724.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Text layoutX="315.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="tree ranking" />
+      <Text layoutX="250.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Classement actuel des arbres">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <ScrollPane fx:id="treeRankingScrollPane" layoutX="46.0" layoutY="117.0" prefHeight="219.0" prefWidth="641.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+        </content>
+      </ScrollPane>
+      <Text layoutX="115.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Le classement des arbres sera soumis automatiquement à la municipalité à la fin de l'exercice." />
+      <Text layoutX="213.0" layoutY="390.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Les 5 premiers arbres seront classés comme remarquables." />
+      <Text layoutX="249.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cliquez sur un arbre pour voir ses informations" />
    </children>
 </Pane>

@@ -24,6 +24,8 @@ import java.util.UUID;
 
 public class AssociationDonationsView extends AbstractAssociationView implements Initializable {
     List<Donation> donations;
+    private HBox selectedHBox = null;
+    private int selectedIndex = -1;
 
     @FXML
     private TextField amountText;
@@ -49,33 +51,36 @@ public class AssociationDonationsView extends AbstractAssociationView implements
         this.donations = controller.getDonations();
         List<String> donatorNames = new ArrayList<>(controller.getDonations().stream()
                 .map(donator -> donator.getName())
+                .distinct()
                 .toList());
         donatorNames.add("Nouveau donateur");
+        entityComboBox.getItems().clear();
         entityComboBox.getItems().addAll(donatorNames);
 
-        VBox donationsVBox = new VBox(10);
+        VBox donationsVBox = new VBox();
         for (Donation donation : donations) {
-            HBox hBox = new HBox(10);
-            Text donationText = new Text("Donation: " + donation.getDescription() + ", Amount: " + donation.getAmount() + ", State: " + donation.getState());
-
-            if (donation.getState() == PaymentState.PENDING) {
-                Button deleteButton = new Button("Supprimer");
-                deleteButton.setOnAction(e -> {
-                    controller.getDonations().remove(donation);
-                    donationsVBox.getChildren().remove(hBox);
-                });
-                hBox.getChildren().add(deleteButton);
-            }
-
-            hBox.getChildren().add(donationText);
+            HBox hBox = createDonationHbox(donation);
             donationsVBox.getChildren().add(hBox);
         }
 
         donationsScrollPane.setContent(donationsVBox);
+        donationsScrollPane.setPickOnBounds(false);
     }
 
     public void onDelete(ActionEvent event) {
-        // TODO
+        if (selectedIndex != -1) {
+            Donation selectedDonation = donations.get(selectedIndex);
+            if (selectedDonation.getState() == PaymentState.PENDING) {
+                controller.getDonations().remove(selectedDonation);
+                initialize(null, null);
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Erreur");
+                alert.setHeaderText(null);
+                alert.setContentText("Seuls les dons en attente peuvent être supprimés.");
+                alert.showAndWait();
+            }
+        }
     }
 
     public void onAsked(ActionEvent event) {
@@ -96,7 +101,7 @@ public class AssociationDonationsView extends AbstractAssociationView implements
             alert.showAndWait();
             return;
         }
-        if ("Nouveau Donateur".equals(selectedDonator)) {
+        if ("Nouveau donateur".equals(selectedDonator)) {
             showNewDonatorPopup(amount);
         } else {
             UUID donatorId = controller.getDonations().stream()
@@ -107,6 +112,7 @@ public class AssociationDonationsView extends AbstractAssociationView implements
             Donation donation = new Donation("Donation " , amount, selectedDonator, donatorId);
             controller.getDonations().add(donation);
         }
+        initialize(null, null);
     }
 
     private void showNewDonatorPopup(double amount) {
@@ -117,10 +123,22 @@ public class AssociationDonationsView extends AbstractAssociationView implements
 
         dialog.showAndWait().ifPresent(name -> {
             // Handle the creation of the new donator
-            UUID newDonatorId = UUID.randomUUID();
-            Donation newDonator = new Donation("Description", amount, name, newDonatorId);
-            controller.getDonations().add(newDonator);
-            entityComboBox.getItems().add(name);
+            boolean nameExists = controller.getDonations().stream()
+                    .anyMatch(donation -> donation.getName().equalsIgnoreCase(name));
+
+            if (nameExists) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Nom du donateur existant");
+                alert.setHeaderText(null);
+                alert.setContentText("Un donateur avec ce nom existe déjà. Veuillez choisir un autre nom.");
+                alert.showAndWait();
+            } else {
+                // Handle the creation of the new donator
+                UUID newDonatorId = UUID.randomUUID();
+                Donation newDonation = new Donation("Description", amount, name, newDonatorId);
+                controller.getDonations().add(newDonation);
+                entityComboBox.getItems().add(name);
+            }
         });
     }
 
@@ -178,22 +196,27 @@ public class AssociationDonationsView extends AbstractAssociationView implements
                     continue;
                 }
                 HBox hBox = new HBox(10);
-                Text donationText = new Text("Donation: " + donation.getDescription() + ", Amount: " + donation.getAmount());
+                Text donationText = new Text("Donner : " + donation.getAmount() + " € à l'association ");
 
-                Button acceptButton = new Button("Accept");
+                Button acceptButton = new Button("OUI");
                 acceptButton.setOnAction(e -> {
                     controller.processDonation(donation);
                     donationsVBox.getChildren().remove(hBox);
+                    initialize(null, null);
+                    popupStage.close();
                 });
 
-                Button denyButton = new Button("Deny");
+                Button denyButton = new Button("NON");
                 denyButton.setOnAction(e -> {
                     donation.deny();
                     donationsVBox.getChildren().remove(hBox);
+                    initialize(null, null);
+                    popupStage.close();
                 });
 
                 hBox.getChildren().addAll(donationText, acceptButton, denyButton);
                 donationsVBox.getChildren().add(hBox);
+
             }
 
             ScrollPane scrollPane = new ScrollPane(donationsVBox);
@@ -206,26 +229,36 @@ public class AssociationDonationsView extends AbstractAssociationView implements
         Scene scene = new Scene(vBox, 300, 200);
         popupStage.setScene(scene);
         popupStage.show();
+        initialize(null, null);
     }
 
     private HBox createDonationHbox(Donation donation){
-        HBox hBox = new HBox();
+        HBox hBox = new HBox(8);
 
         String name = donation.getName();
         String amount = donation.getAmount() + " €";
         String state = donation.getState().toString();
 
-        Text firstNameText = new Text(name);
-        firstNameText.setWrappingWidth(100);
-        Text lastNameText = new Text(amount);
-        lastNameText.setWrappingWidth(100);
-        Text roleText = new Text(state);
-        roleText.setWrappingWidth(100);
+        Text donationText = new Text("Donation demandée à " + name + " de " + amount + " | " + state);
 
-
-
-        hBox.getChildren().addAll(firstNameText, lastNameText, roleText);
-
+        hBox.getChildren().addAll(donationText);
+        hBox.setOnMouseClicked(event -> toggleSelection(hBox));
         return hBox;
+    }
+
+    private void toggleSelection(HBox hBox) {
+        if (selectedHBox != null) {
+            selectedHBox.getStyleClass().remove("selected");
+            selectedHBox.setStyle("");
+        }
+        if (selectedHBox == hBox) {
+            selectedHBox = null;
+            selectedIndex = -1;
+        } else {
+            hBox.getStyleClass().add("selected");
+            hBox.setStyle("-fx-background-color: lightblue;");
+            selectedHBox = hBox;
+            selectedIndex = ((VBox) donationsScrollPane.getContent()).getChildren().indexOf(hBox);
+        }
     }
 }

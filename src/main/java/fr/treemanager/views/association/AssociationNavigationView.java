@@ -55,7 +55,7 @@ public class AssociationNavigationView implements Initializable {
     }
 
     public void switchToDefrayals(ActionEvent event){
-
+        this.switchContent("association/defrayals.fxml", new AssociationVisitDefrayalView(this.associationController));
     }
 
     public void switchToDonations(ActionEvent event){
@@ -63,15 +63,15 @@ public class AssociationNavigationView implements Initializable {
     }
 
     public void switchToBills(ActionEvent event){
-
+        this.switchContent("association/bills.fxml", new AssociationBillsView(this.associationController));
     }
 
     public void switchToVisitHistory(ActionEvent event){
-
+        this.switchContent("association/visitHistory.fxml", new AssociationVisitHistorView(this.associationController));
     }
 
     public void switchToTreeRanking(ActionEvent event){
-
+        this.switchContent("association/treeRanking.fxml", new AssociationTreeRankingView(this.associationController));
     }
 
     public void receiveNotification(ActionEvent event){

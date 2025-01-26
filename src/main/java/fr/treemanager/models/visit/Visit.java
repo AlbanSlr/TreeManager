@@ -2,7 +2,10 @@ package fr.treemanager.models.visit;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.treemanager.models.member.Member;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
 public class Visit {
@@ -72,4 +75,8 @@ public class Visit {
         return this.memberId != null;
     }
 
+    public String getDateString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
+        return sdf.format(date);
+    }
 }

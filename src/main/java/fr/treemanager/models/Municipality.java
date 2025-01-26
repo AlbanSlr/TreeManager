@@ -2,6 +2,7 @@ package fr.treemanager.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import fr.treemanager.models.tree.Tree;
 
@@ -29,5 +30,24 @@ public class Municipality{
             }
         }
         return remarkableTrees;
+    }
+
+    public List<Tree> getNonRemarkableTrees() {
+        List <Tree> nonRemarkableTrees = new ArrayList<>();
+        for (Tree tree : trees) {
+            if (!tree.getRemarkable()) {
+                nonRemarkableTrees.add(tree);
+            }
+        }
+        return nonRemarkableTrees;
+    }
+
+    public Tree getTree(UUID id) {
+        for (Tree tree : trees) {
+            if (tree.getId().equals(id)) {
+                return tree;
+            }
+        }
+        return null;
     }
 }

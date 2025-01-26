@@ -1,5 +1,6 @@
 package fr.treemanager;
 
+import fr.treemanager.utils.FileWatcherService;
 import fr.treemanager.views.association.AssociationNavigationView;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

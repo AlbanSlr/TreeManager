@@ -38,7 +38,7 @@ public class AssociationManageMemberView extends AbstractAssociationView impleme
     }
 
     private HBox createMemberHbox(Member member){
-        HBox hBox = new HBox();
+        HBox hBox = new HBox(10);
 
         String firstName = member.getFirstName();
         String lastName = member.getLastName();

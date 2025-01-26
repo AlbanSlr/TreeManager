@@ -47,7 +47,6 @@ public class AssociationCreateVisitView extends AbstractAssociationView implemen
         this.remarkableTrees = controller.getRemarkableTrees();
 
         VBox vBox = new VBox(8);
-        int index = 0;
 
         for (Tree tree : remarkableTrees) {
             HBox treeHbox = createVisitHbox(tree);

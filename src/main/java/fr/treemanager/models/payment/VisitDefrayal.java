@@ -30,4 +30,12 @@ public class VisitDefrayal extends Payment {
         this.paymentDate = new Date();
 
     }
+
+    public static double getVisitDefrayalAmount() {
+        return VISIT_DEFRAYAL_AMOUNT;
+    }
+
+    public UUID getVisitID() {
+        return visitID;
+    }
 }

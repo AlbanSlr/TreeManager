@@ -4,6 +4,7 @@ import fr.treemanager.models.Municipality;
 import fr.treemanager.models.association.Association;
 import fr.treemanager.models.association.BudgetYear;
 import fr.treemanager.models.member.Member;
+import fr.treemanager.models.payment.Bill;
 import fr.treemanager.models.payment.Donation;
 import fr.treemanager.models.payment.VisitDefrayal;
 import fr.treemanager.models.tree.Tree;
@@ -12,11 +13,14 @@ import fr.treemanager.models.visit.VisitState;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.treemanager.utils.FileChangeListener;
+import fr.treemanager.utils.FileWatcherService;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class AssociationController implements FileChangeListener {
 
@@ -27,10 +31,12 @@ public class AssociationController implements FileChangeListener {
         try {
             this.association = mapper.readValue(new File("./association.json"), Association.class);
         } catch (Exception e) {
-            this.association = new Association("Make America Great Again", new Municipality(Tree.loadTreesFromCSV()));
+            this.association = new Association("lez arbres", new Municipality(Tree.loadTreesFromCSV()));
             this.save();
         }
-
+        FileWatcherService fileWatcherService = new FileWatcherService("./");
+        fileWatcherService.addListener("association.json", this);
+        fileWatcherService.start();
     }
 
     public void onFileChange() {
@@ -80,7 +86,7 @@ public class AssociationController implements FileChangeListener {
     }
 
     public void addScheduledVisit(Visit visit) {
-        if(visit.getDate().after(new Date())) {
+        if(visit.getDate().before(new Date())) {
             throw new IllegalArgumentException("The scheduler visit must be in the future");
         }
         association.addScheduledVisit(visit);
@@ -115,6 +121,69 @@ public class AssociationController implements FileChangeListener {
         donation.process(association);
     }
 
+    public List<Tree> getNonRemarkableTreesRanking() {
+        List<Tree> nonRemarkableTrees = association.getMunicipality().getNonRemarkableTrees();
+        HashMap<Tree, Integer> ranking = new HashMap<>();
+        for (Tree tree : nonRemarkableTrees) {
+            ranking.put(tree, 0);
+        }
+        for (Member member : association.getMembers()) {
+            for (UUID treeID : member.getVotes()) {
+                Tree tree = association.getMunicipality().getTree(treeID);
+                if (tree == null) {
+                    continue; // case where the tree has been removed but still in the votes
+                }
+                if (ranking.containsKey(tree)) {
+                    ranking.put(tree, ranking.get(tree) + 1);
+                }
+            }
+        }
+        nonRemarkableTrees.removeIf(tree -> ranking.get(tree) == 0);
+        nonRemarkableTrees.sort((t1, t2) -> ranking.get(t2) - ranking.get(t1));
+        return nonRemarkableTrees;
+    }
 
-    //TODO reveiw compte rendu visite (report)
+    public Visit getVisit(UUID id) {
+        for (Visit visit : association.getVisits()) {
+            if (visit.getId().equals(id)) {
+                return visit;
+            }
+        }
+        return null;
+    }
+
+    public Member getMember(UUID id) {
+        for (Member member : association.getMembers()) {
+            if (member.getId().equals(id)) {
+                return member;
+            }
+        }
+        return null;
+    }
+
+    public List<Bill> getBills() {
+        return association.getBills();
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public boolean createVisitDefrayal(Visit visit) {
+        if (VisitDefrayal.getVisitDefrayalAmount() > association.getBalance()) {
+            return false;
+        }
+        VisitDefrayal visitDefrayal = new VisitDefrayal("Defraiement de la visite " + visit.getId(), visit.getId());
+        visitDefrayal.process(association);
+        association.addVisitDefrayal(visitDefrayal);
+        return true;
+    }
+
+    public List<VisitDefrayal> getVisitDefrayals() {
+        return association.getVisitDefrayals();
+    }
+
+
+
+    //TODO recevoir compte rendu visite (report)
 }
