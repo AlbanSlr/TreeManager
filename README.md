@@ -1,17 +1,16 @@
-- Projet - TreeManager | Alban Sellier, Rémi Géraud, Noé Morizur
-  - 
-- Introduction
+# Projet - TreeManager
+  
+*Alban Sellier, Rémi Géraud, Noé Morizur*
+***
+### Introduction
+Le but de ce projet est d'implémenter une structure complète pour la gestion des arbres d'une municipalité. Pour ce faire, trois applications sont nécessaires : une pour la municipalité, une pour l'association, et une pour les membres.
 
-le but du projet est d'implémenté une structure complète pour faire la gestion des arbres d'une municipalité. 
-Pour ce faire il faut faire 3 applications, une pour la municipalité, une pour l'association et une pour les membres.
+Vous trouverez donc dans ce projet trois classes permettant de lancer ces applications : AssociationApp, MemberApp, et MunicipalityApp.
 
-Vous trouverez donc dans ce projet 3 classes permettant de lancer ces applications, AssociationApp, MemberApp, et MunicipalityApp. 
+### Sauvegarde
+Pour la gestion des sauvegardes, deux boutons sont disponibles en haut de l'application. Le premier permet de sauvegarder les modifications apportées dans la base de données (bouton de gauche), tandis que le second permet de récupérer les informations depuis la base.
 
-- Sauvegarde
+Ainsi, il est possible d'exécuter les trois applications simultanément et de les faire communiquer entre elles via un fichier JSON.
 
-Pour la gestion des sauvegardes, il y a 2 boutons en haut de l'application qui permette de sauvegarder sur la base les modifications apportées (bouton de gauche) et un autre permettant de récupérer les informations de la base. 
-Ainsi, il est possible d'allumer les 3 applications en même temps et de les faire communiquer entre elles via se fichier json.
-
-- Fonctionnement des connexions membres
-
-Pour pouvoir se connecter, il faut au préalable avoir créé un membre dans l'association. Par un parcours de membre, il suffit ensuite de se connecter. Il n'y a pas besoin d'avoir de mot de passe pour se connecter à l'application pour simplifier le projet.
+### Fonctionnement des connexions membres
+Pour se connecter, il faut d'abord avoir créé un membre dans l'association. Après avoir parcouru les membres existants, il suffit ensuite de se connecter. Il n'est pas nécessaire d'utiliser un mot de passe pour se connecter à l'application, afin de simplifier le projet.
