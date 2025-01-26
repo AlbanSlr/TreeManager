@@ -21,7 +21,7 @@ public class MemberVisitView extends AbstractMemberView implements Initializable
     private TableView<Visit> visitTable;
 
     @FXML
-    private TableColumn<Visit, Integer> idColumn;
+    private TableColumn<Visit, String> idColumn;
 
     @FXML
     private TableColumn<Visit, String> dateColumn;
@@ -42,6 +42,7 @@ public class MemberVisitView extends AbstractMemberView implements Initializable
         idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
         stateColumn.setCellValueFactory(new PropertyValueFactory<>("state"));
+
 
         // Ajouter une colonne pour les actions (réserver)
         actionColumn.setCellFactory(param -> new TableCell<>() {

@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="CENTER">
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" spacing="10" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <TableView fx:id="treeTable" prefHeight="400" prefWidth="800">
       <columns>
-         <TableColumn text="Nom" fx:id="nameColumn" prefWidth="200" />
-         <TableColumn text="Espèce" fx:id="speciesColumn" prefWidth="200" />
-         <TableColumn text="Genre" fx:id="genusColumn" prefWidth="200" />
-         <TableColumn text="Adresse" fx:id="addressColumn" prefWidth="200" />
-         <TableColumn text="Vote" fx:id="actionColumn" prefWidth="100" />
+         <TableColumn fx:id="nameColumn" prefWidth="200" text="Nom" />
+         <TableColumn fx:id="speciesColumn" prefWidth="200" text="Espèce" />
+         <TableColumn fx:id="genusColumn" prefWidth="200" text="Genre" />
+         <TableColumn fx:id="addressColumn" prefWidth="200" text="Adresse" />
+         <TableColumn fx:id="actionColumn" prefWidth="100" text="Vote" />
       </columns>
    </TableView>
-   <Text fx:id="infoLabel" text="Vous pouvez voter pour 5 arbres maximum." />
+   <Text fx:id="infoLabel" strokeType="OUTSIDE" strokeWidth="0.0" text="Vous avez 5 votes maximum par an" textAlignment="CENTER" />
 </VBox>

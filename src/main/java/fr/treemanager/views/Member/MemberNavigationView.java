@@ -60,6 +60,10 @@ public class MemberNavigationView implements Initializable {
         this.switchContent("member/memberVisit.fxml", new MemberVisitView(this.memberController));
     }
 
+    public void switchToMemberOwnVisit(ActionEvent event){
+        this.switchContent("member/memberOwnVisit.fxml", new MemberOwnVisitView(this.memberController));
+    }
+
     public void switchToConnexion(ActionEvent event) {
         try {
             // Charger la page de connexion

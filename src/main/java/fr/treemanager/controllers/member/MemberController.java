@@ -40,6 +40,10 @@ public class MemberController {
         return member;
     }
 
+    public Association getAssociation() {
+        return association;
+    }
+
     public void vote(Tree tree) {
         member.vote(tree);
     }
@@ -111,5 +115,14 @@ public class MemberController {
             System.err.println("Erreur du rechargement des données. " + e);
         }
     }
+
+    public Tree getTreeById(UUID treeId) {
+        // Supposez que `association` possède une liste ou une collection d'arbres
+        return association.getMunicipality().getTrees().stream()
+                .filter(tree -> tree.getId().equals(treeId))
+                .findFirst()
+                .orElse(null); // Retourne null si aucun arbre n'est trouvé
+    }
+
 
 }

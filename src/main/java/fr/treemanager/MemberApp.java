@@ -35,8 +35,6 @@ public class MemberApp extends Application {
             System.exit(0); // Fermer l'application si aucun utilisateur
         }
 
-        //
-
         // Charger la fenêtre principale avec le membre connecté
         FXMLLoader mainLoader = new FXMLLoader(MemberApp.class.getResource("member/layout.fxml"));
         MemberController controller = new MemberController(connexionView.getConnectedMember().getId());

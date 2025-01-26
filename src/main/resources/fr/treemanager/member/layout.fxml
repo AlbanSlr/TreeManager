@@ -111,7 +111,12 @@
                               <Insets bottom="12.0" />
                            </VBox.margin>
                         </Button>
-                        <Button fx:id="toMemberVisit" mnemonicParsing="false" onAction="#switchToMemberVisit" prefWidth="200.0" text="Mes visites">
+                        <Button fx:id="toMemberVisit" mnemonicParsing="false" onAction="#switchToMemberVisit" prefWidth="200.0" text="Choisir une visite">
+                           <VBox.margin>
+                              <Insets bottom="12.0" />
+                           </VBox.margin>
+                        </Button>
+                        <Button fx:id="toMemberOwnVisit" mnemonicParsing="false" onAction="#switchToMemberOwnVisit" prefWidth="200.0" text="Mes visites">
                            <VBox.margin>
                               <Insets bottom="12.0" />
                            </VBox.margin>
