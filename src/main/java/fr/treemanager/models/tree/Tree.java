@@ -142,7 +142,6 @@ public final class Tree {
                 throw new RuntimeException("Failed to load trees from CSV file");
             }
         }
-
         return trees;
     }
 

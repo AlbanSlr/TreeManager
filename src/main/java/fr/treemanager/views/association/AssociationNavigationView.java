@@ -22,15 +22,15 @@ public class AssociationNavigationView implements Initializable {
     protected StackPane contentPane;
 
     @FXML
-    private Button toHome, toManageMembers, toAddMember, toCreateTreeVisit, toDefrayals, toDonations, toBills, toVisitHistory, toTreeRanking, receiveNotification;
+    private Button toHome, toManageMembers, toAddMember, toCreateTreeVisit, toDefrayals, toDonations, toBills, toVisitHistory, toTreeRanking, updateDataButton, reloadAppButton;
 
     @FXML
-    private ActionEvent switchToHome, switchToManageMembers, switchToAddMember, switchToCreateTreeVisit, switchToDefrayals, switchToDonations, switchToBills, switchToVisitHistory, switchToTreeRanking;
+    private ActionEvent switchToHome, switchToManageMembers, switchToAddMember, switchToCreateTreeVisit, switchToDefrayals, switchToDonations, switchToBills, switchToVisitHistory, switchToTreeRanking, updateData, reloadApp;
 
     private final AssociationController associationController;
 
-    public AssociationNavigationView() {
-        this.associationController = new AssociationController();
+    public AssociationNavigationView(AssociationController controller) {
+        this.associationController = controller;
     }
 
     @Override
@@ -67,17 +67,21 @@ public class AssociationNavigationView implements Initializable {
     }
 
     public void switchToVisitHistory(ActionEvent event){
-        this.switchContent("association/visitHistory.fxml", new AssociationVisitHistorView(this.associationController));
+        this.switchContent("association/visitHistory.fxml", new AssociationVisitHistoryView(this.associationController));
     }
 
     public void switchToTreeRanking(ActionEvent event){
         this.switchContent("association/treeRanking.fxml", new AssociationTreeRankingView(this.associationController));
     }
 
-    public void receiveNotification(ActionEvent event){
-
+    public void updateData(ActionEvent event){
+        associationController.save();
     }
 
+    public void reloadApp(ActionEvent event){
+        associationController.reload();
+        this.initialize(null, null);
+    }
 
     protected void switchContent(String filename, AbstractAssociationView viewController) {
         try {
@@ -91,5 +95,4 @@ public class AssociationNavigationView implements Initializable {
             Logger.getLogger(AssociationNavigationView.class.getName()).log(Level.SEVERE, null, exception);
         }
     }
-
 }

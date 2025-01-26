@@ -1,5 +1,6 @@
 package fr.treemanager.models.visit;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.treemanager.models.member.Member;
 
@@ -52,7 +53,9 @@ public class Visit {
     }
 
     public void setReport(Report report) {
-
+        if (report == null){
+            return;
+        }
         if(state != VisitState.SCHEDULED) {
             throw new IllegalStateException("Visit state is not scheduled");
         }
@@ -62,19 +65,22 @@ public class Visit {
 
     }
 
+
     public Report getReport() {
         if(state != VisitState.DONE) {
-            throw new IllegalStateException("Visit has not been done");
+            return null;
         }
 
         return report;
 
     }
 
+    @JsonIgnore
     public boolean isBooked() {
         return this.memberId != null;
     }
 
+    @JsonIgnore
     public String getDateString() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM yyyy", Locale.FRENCH);
         return sdf.format(date);

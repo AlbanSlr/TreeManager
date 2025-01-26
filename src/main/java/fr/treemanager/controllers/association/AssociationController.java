@@ -1,5 +1,7 @@
 package fr.treemanager.controllers.association;
 
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import fr.treemanager.models.Municipality;
 import fr.treemanager.models.association.Association;
 import fr.treemanager.models.association.BudgetYear;
@@ -22,7 +24,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class AssociationController implements FileChangeListener {
+public class AssociationController {
 
     private Association association;
 
@@ -31,33 +33,29 @@ public class AssociationController implements FileChangeListener {
         try {
             this.association = mapper.readValue(new File("./association.json"), Association.class);
         } catch (Exception e) {
+
+            System.out.println("Error while reading association from file, creating a new one : " + e);
+
             this.association = new Association("lez arbres", new Municipality(Tree.loadTreesFromCSV()));
-            this.save();
         }
-        FileWatcherService fileWatcherService = new FileWatcherService("./");
-        fileWatcherService.addListener("association.json", this);
-        fileWatcherService.start();
-    }
-
-    public void onFileChange() {
-        ObjectMapper mapper = new ObjectMapper();
-        try {
-            this.association = mapper.readValue(new File("./association.json"), Association.class);
-        } catch (Exception e) {
-            throw new RuntimeException("Error while reading association from file", e);
-        }
-
-        System.out.println(this.association.getMembers());
-
     }
 
 
-    private void save() {
+    public void save() {
         ObjectMapper mapper = new ObjectMapper();
         try {
             mapper.writeValue(new File("./association.json"), association);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public void reload(){
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.association = mapper.readValue(new File("./association.json"), Association.class);
+        } catch (Exception e) {
+            System.err.println("Erreur du rechargement des données. " + e);
         }
     }
 
@@ -71,18 +69,6 @@ public class AssociationController implements FileChangeListener {
 
     public List<Member> getMembers() {
         return association.getMembers();
-    }
-
-    public void defrayVisit(Visit visit) {
-
-        if(visit.getState() != VisitState.DONE) {
-            throw new IllegalArgumentException("Visit must be done to be defrayed");
-        }
-
-        VisitDefrayal visitDefrayal = new VisitDefrayal("Defraiement de la visite " + visit.getId(), visit.getId());
-        visitDefrayal.process(association);
-        this.association.addVisitDefrayal(visitDefrayal);
-
     }
 
     public void addScheduledVisit(Visit visit) {
@@ -182,7 +168,6 @@ public class AssociationController implements FileChangeListener {
     public List<VisitDefrayal> getVisitDefrayals() {
         return association.getVisitDefrayals();
     }
-
 
 
     //TODO recevoir compte rendu visite (report)

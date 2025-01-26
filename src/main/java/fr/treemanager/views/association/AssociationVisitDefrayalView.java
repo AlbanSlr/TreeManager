@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -42,7 +43,11 @@ public class AssociationVisitDefrayalView extends AbstractAssociationView implem
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.visits =new ArrayList<>();
         List<Visit> allVisits = controller.getVisits();
+        if (allVisits == null) {
+            return;
+        }
         for (Visit visit : allVisits) {
             if (visit.getState() == VisitState.DONE && !hasDefrayal(visit)) {
 

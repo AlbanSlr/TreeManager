@@ -9,6 +9,7 @@ import java.util.List;
 import static java.nio.file.StandardWatchEventKinds.*;
 
 public class FileWatcherService {
+    private Thread watcherThread;
 
     private final HashMap<String, List<FileChangeListener>> listeners = new HashMap<String, List<FileChangeListener>>();
     private final Path directoryPath;
@@ -25,7 +26,7 @@ public class FileWatcherService {
     }
 
     public void start() {
-        Thread watcherThread = new Thread(() -> {
+         watcherThread = new Thread(() -> {
             try {
                 watchDirectory(directoryPath, this.listeners);
             } catch (IOException | InterruptedException e) {
@@ -35,34 +36,43 @@ public class FileWatcherService {
         watcherThread.start();
     }
 
+    public void stop() {
+        if (watcherThread != null) {
+            watcherThread.interrupt();
+        }
+    }
+
     private static void watchDirectory(Path dir, HashMap<String, List<FileChangeListener>> listeners ) throws IOException, InterruptedException {
         WatchService watchService = FileSystems.getDefault().newWatchService();
         dir.register(watchService, ENTRY_CREATE, ENTRY_DELETE, ENTRY_MODIFY);
 
         System.out.println("Surveillance de : " + dir);
+        try {
+            while (true) {
+                WatchKey key = watchService.take();
+                for (WatchEvent<?> event : key.pollEvents()) {
+                    WatchEvent.Kind<?> kind = event.kind();
 
-        while (true) {
-            WatchKey key = watchService.take();
-            for (WatchEvent<?> event : key.pollEvents()) {
-                WatchEvent.Kind<?> kind = event.kind();
+                    Path fileName = (Path) event.context();
 
-                Path fileName = (Path) event.context();
+                    List<FileChangeListener> tempListeners = listeners.get(fileName.toString());
 
-                List<FileChangeListener> tempListeners = listeners.get(fileName.toString());
+                    if(tempListeners != null) {
+                        for(FileChangeListener listener : tempListeners) {
+                            listener.onFileChange();
+                        }
 
-                if(tempListeners != null) {
-                    for(FileChangeListener listener : tempListeners) {
-                        listener.onFileChange();
                     }
 
                 }
 
+                boolean valid = key.reset();
+                if (!valid) {
+                    break;
+                }
             }
-
-            boolean valid = key.reset();
-            if (!valid) {
-                break;
-            }
+        } catch (InterruptedException e) {
+            System.out.println("Fermeture du service de surveillance");
         }
     }
 }
