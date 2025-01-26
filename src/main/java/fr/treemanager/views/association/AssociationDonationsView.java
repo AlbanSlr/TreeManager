@@ -1,8 +1,6 @@
 package fr.treemanager.views.association;
 
 import fr.treemanager.controllers.association.AssociationController;
-import fr.treemanager.models.member.Member;
-import fr.treemanager.models.member.Role;
 import fr.treemanager.models.payment.Donation;
 import fr.treemanager.models.payment.PaymentState;
 import fr.treemanager.views.AbstractAssociationView;
