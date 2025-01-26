@@ -8,6 +8,7 @@ module fr.treemanager {
     opens fr.treemanager to javafx.fxml;
     opens fr.treemanager.views to javafx.fxml;
     opens fr.treemanager.views.association to javafx.fxml;
+    opens fr.treemanager.views.Member to javafx.fxml;
 
     opens fr.treemanager.models to com.fasterxml.jackson.databind;
     opens fr.treemanager.models.association to com.fasterxml.jackson.databind;
@@ -25,4 +26,5 @@ module fr.treemanager {
     exports fr.treemanager.models.visit to com.fasterxml.jackson.databind;
     exports fr.treemanager.views to javafx.fxml;
     exports fr.treemanager.views.association to javafx.fxml;
+    exports fr.treemanager.views.Member to javafx.fxml;
 }
