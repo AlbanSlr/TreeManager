@@ -74,5 +74,8 @@ public class MemberController {
         return availableVisits;
     }
 
+    public List<Tree> getArbres(){
+        return association.getMunicipality().getNoneRemarkableTrees();
+    }
 
 }

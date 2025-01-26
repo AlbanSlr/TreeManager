@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Text layoutX="201.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MemberVote">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Text>
-   </children>
-</AnchorPane>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml" spacing="10" alignment="CENTER">
+   <TableView fx:id="treeTable" prefHeight="400" prefWidth="800">
+      <columns>
+         <TableColumn text="Nom" fx:id="nameColumn" prefWidth="200" />
+         <TableColumn text="Espèce" fx:id="speciesColumn" prefWidth="200" />
+         <TableColumn text="Genre" fx:id="genusColumn" prefWidth="200" />
+         <TableColumn text="Adresse" fx:id="addressColumn" prefWidth="200" />
+         <TableColumn text="Vote" fx:id="actionColumn" prefWidth="100" />
+      </columns>
+   </TableView>
+   <Label fx:id="infoLabel" text="Vous pouvez voter pour 5 arbres maximum." />
+</VBox>
