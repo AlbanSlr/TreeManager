@@ -21,6 +21,10 @@ public class MemberController {
         this.association = association;
     }
 
+    public Member getMember() {
+        return member;
+    }
+
     public void vote(Tree tree) {
         member.vote(tree);
     }
@@ -69,4 +73,6 @@ public class MemberController {
         }
         return availableVisits;
     }
+
+
 }

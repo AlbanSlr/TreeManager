@@ -13,14 +13,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MemberHomeView extends AbstractMemberView implements Initializable{
+
+    private Member member;
     @FXML
     private Text identite;
 
     @FXML
     private Button quitterAsso;
-
-    @FXML
-    private ActionEvent toNextExercize;
 
     public MemberHomeView(MemberController controller) {
         super(controller);
@@ -28,7 +27,15 @@ public class MemberHomeView extends AbstractMemberView implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        identite.setText("Member.getMember()");
+        this.member = controller.getMember();
+        identite.setText("Firstname : "+member.getFirstName()+"\nLastname :"+member.getLastName());
     }
+
+    @FXML
+    private void MemberLeaveAsso(ActionEvent event){
+        controller.unsubscribe();
+        System.out.println("Vous avez quitté l'association !");
+    }
+
 
 }

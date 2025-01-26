@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            prefHeight="400.0" prefWidth="600.0">
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" spacing="20" style="-fx-padding: 20;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Visites disponibles">
+      <font>
+         <Font size="18.0" />
+      </font>
+   </Text>
 
-</AnchorPane>
+   <TableView fx:id="visitTable" prefHeight="300.0" prefWidth="560.0">
+      <columns>
+         <TableColumn fx:id="idColumn" prefWidth="100" text="ID" />
+         <TableColumn fx:id="dateColumn" prefWidth="194.39996337890625" text="Date" />
+         <TableColumn fx:id="stateColumn" prefWidth="175.0" text="État" />
+         <TableColumn fx:id="actionColumn" prefWidth="100" text="Action" />
+      </columns>
+   </TableView>
+   <padding>
+      <Insets top="30.0" />
+   </padding>
+</VBox>
